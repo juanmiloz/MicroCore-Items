@@ -3,6 +3,8 @@ package com.microcore.springcloud.msvc.items.controllers;
 import com.microcore.springcloud.msvc.items.models.Item;
 import com.microcore.springcloud.msvc.items.services.ItemService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,10 +15,13 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@AllArgsConstructor
 public class ItemController {
 
     final private ItemService itemService;
+
+    public ItemController(@Qualifier("itemServiceWebClient") ItemService itemService) {
+        this.itemService = itemService;
+    }
 
     @GetMapping
     public ResponseEntity<List<Item>> list() {
