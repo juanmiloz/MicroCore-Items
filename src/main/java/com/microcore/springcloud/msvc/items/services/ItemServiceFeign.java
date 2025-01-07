@@ -3,14 +3,13 @@ package com.microcore.springcloud.msvc.items.services;
 import com.microcore.springcloud.msvc.items.clients.ProductFeignClient;
 import com.microcore.springcloud.msvc.items.models.Item;
 import com.microcore.springcloud.msvc.items.models.Product;
+import feign.FeignException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -32,9 +31,11 @@ public class ItemServiceFeign implements ItemService {
 
     @Override
     public Optional<Item> findById(Long id) {
-        Product product = client.details(id);
-        if(product == null) return Optional.empty();
-
-        return Optional.of(new Item(product, new Random().nextInt(10)+1));
+        try{
+            Product product = client.details(id);
+            return Optional.of(new Item(product, new Random().nextInt(10)+1));
+        }catch (FeignException e){
+            return Optional.empty();
+        }
     }
 }

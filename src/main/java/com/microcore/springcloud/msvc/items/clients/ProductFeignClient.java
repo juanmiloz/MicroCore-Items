@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(url = "localhost:8001") //Note: Actually we dont have implemented eureka our server discovery service, so we need to specify the url of the service we want to consume
+@FeignClient(url = "localhost:8001", name = "msvc-product") //Note: Actually we don't have implemented eureka our server discovery service, so we need to specify the url of the service we want to consume
 public interface ProductFeignClient {
 
     @GetMapping
