@@ -2,6 +2,7 @@ package com.microcore.springcloud.msvc.items.controllers;
 
 import com.microcore.springcloud.msvc.items.models.Item;
 import com.microcore.springcloud.msvc.items.services.ItemService;
+import com.microcore.springcloud.msvc.items.services.ItemServiceFeign;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,7 +20,7 @@ public class ItemController {
 
     final private ItemService itemService;
 
-    public ItemController(@Qualifier("itemServiceWebClient") ItemService itemService) {
+    public ItemController(@Qualifier("itemServiceFeign") ItemService itemService) {
         this.itemService = itemService;
     }
 
