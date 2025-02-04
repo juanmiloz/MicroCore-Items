@@ -41,7 +41,7 @@ public class ItemController {
     @GetMapping("/{id}")
     public ResponseEntity<?> details(@PathVariable Long id) throws InterruptedException {
         Optional<Item> itemOptional = cBreakerFactory.create("items").run(
-                () -> itemService.findById(id),
+                () -> itemService.findById(id)/*,
                 e -> {
                     System.out.println(e.getMessage());
                     logger.error(e.getMessage());
@@ -52,7 +52,7 @@ public class ItemController {
                     product.setName("Camara Sony");
                     product.setPrice(500.00);
                     return Optional.of(new Item(product, 5));
-                }
+                }*/
         );
         if(itemOptional.isPresent()){
             return ResponseEntity.ok(itemOptional.get());
